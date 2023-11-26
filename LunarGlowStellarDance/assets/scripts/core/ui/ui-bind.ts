@@ -4,26 +4,19 @@ import { LocalLabel } from "../localization/local-label";
 import { UtilNode } from "../util/util";
 import { UICom } from "./ui-com";
 
+/** UI连接类 */
 export class UIBind {
 
-    // User interface binding mapping.
     private static _map: { [com: string]: (node: Node) => UICom } = {};
 
-    /**
-     * Initialize the user interface binder.
-     */
-    public static init () { }
+    public static init() { }
 
-    public static on (name: string, com: (node: Node) => UICom) {
+    public static on(name: string, com: (node: Node) => UICom) {
         this._map[name] = com;
     }
 
-    /**
-     * This method is used to detect and bind the nodes of the user interface.
-     * @param node Binding nodes need to be detected.
-     * @returns Array of components that have been bound.
-     */
-    public static get (node: Node): UICom[] {
+    /** 此方法用于获取节点和绑定的用户类 */
+    public static get(node: Node): UICom[] {
 
         var children = UtilNode.getChildren(node);
         var comList: UICom[] = [];

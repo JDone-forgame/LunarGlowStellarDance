@@ -48,6 +48,7 @@ export class UI extends Singleton {
         }
     }
 
+    /** 加载预制体UI */
     public load(name: string) {
         const asset = ResCache.Instance.getPrefab(name);
         if (asset) {
@@ -107,7 +108,7 @@ export class UI extends Singleton {
                         uiBase.on();
                         this._map[name] = uiBase;
                     } else {
-                        Log.warn('Can not load res : ' + name);
+                        warn(`--->ui/目录中没有找到该名字${name}的UI预制体`);
                     }
                 });
             }
@@ -120,7 +121,7 @@ export class UI extends Singleton {
         if (panel) {
             panel.off();
         } else {
-            //Log.warn('You want off a ui object that does not exist : ' + name);
+            warn(`--->想要关闭一个不存在的UI:${name}`);
         }
     }
 
@@ -130,7 +131,7 @@ export class UI extends Singleton {
             panel.destroy();
             this._map[name] = undefined;
         } else {
-            Log.warn('You want destroy a ui object that does not exist. - ' + name);
+            warn(`--->想要销毁一个不存在的UI:${name}`);
         }
     }
 

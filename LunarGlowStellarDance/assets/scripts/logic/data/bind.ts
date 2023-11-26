@@ -2,6 +2,7 @@ import { Msg } from "../../core/msg/msg";
 import { Singleton } from "../../core/pattern/singleton";
 import { Sound } from "../../core/audio/sound";
 import { DataGameInst } from "./data-core";
+import { warn } from "cc";
 
 export class Bind extends Singleton {
 
@@ -46,48 +47,33 @@ export class Bind extends Singleton {
         });
     }
 
-    /**
-     * This method is used to execute specific events by key.
-     * @param key The name of the event to execute.
-     */
+    /** 此方法用于按键执行指定事件 */
     public on(key: string) {
         var event = this._map[key];
         if (event) {
             event();
             this.countEvents();
         } else {
-            console.warn('Can not find key:' + key);
+            warn(`--->无法获取该连接的事件:${key}`);
         }
     }
 
-    /**
-     * This method is to get this event and return the result of executing the method.
-     * @param key The key is event to execute.
-     * @returns 
-     */
+    /** 获取指定连接名方法 */
     public get(key: string) {
         return this._map[key]();
     }
 
-    /**
-     * This method is used to determine if the event is mapped or not.
-     * @param key The key of the event to be judged.
-     * @returns 
-     */
+    /** 是否有指定Bind */
     public hasBind(key: string): boolean {
         return this._map[key] !== undefined;
     }
 
-    /**
-     * Current frame event execution statistics.
-     */
+    /** 事件总数+1 */
     public countEvents() {
         this.totalEvents++;
     }
 
-    /**
-     * Check if the count needs to be refreshed according to the current frame.
-     */
+    /** 检查计数是否需要根据当前帧进行刷新 */
     public checkRefresh() {
         if (this.totalEvents > 0) {
             Msg.emit("refresh_ui");
@@ -95,13 +81,7 @@ export class Bind extends Singleton {
         }
     }
 
-    /**
-     * This method is an update function for each frame.
-     * @param deltaTime This value is the execution time per frame.
-     */
     public update(deltaTime: number): void {
-
-        // Check if a refresh is needed.
         this.checkRefresh();
     }
 

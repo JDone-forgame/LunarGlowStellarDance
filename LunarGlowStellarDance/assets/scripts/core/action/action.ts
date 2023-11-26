@@ -1,4 +1,4 @@
-import { randomRangeInt, _decorator, warn, error } from 'cc';
+import { randomRangeInt, _decorator, warn, error, log } from 'cc';
 import { Sound } from '../audio/sound';
 import { Msg } from '../msg/msg';
 import { ResCache } from '../res/res-cache';
@@ -279,44 +279,59 @@ export class UtilAction {
         Msg.emit('msg_ui_off', key);
     }
 
+    /** 操作:打开音频特效 */
+    public static on_sfx(key: string) {
+        Sound.on(key);
+    }
+
+    /** 操作:关闭音频特效 */
     public static off_sfx(key: string) {
         Sound.off(key);
     }
 
+    /** 操作:打开音频特效 */
     public static on_sfxing(key: string, volume = 1) {
         Sound.playLoop(key, volume);
     }
 
+    /** 操作:关闭音频特效 */
     public static off_sfxing(key: number) {
         Sound.offing(key);
     }
 
+    /** 操作:播放音乐 */
     public static on_bgm(key: string) {
         Sound.onBGM(key);
     }
 
+    /** 操作:关闭音乐 */
     public static off_bgm(key: string) {
         Sound.offBGM(key);
     }
 
+    /** 操作:更新音乐 */
     public static update_bgm() {
         Sound.updateBGM();
     }
 
+    /** 操作:发送消息 */
     public static on_msg(key: string) {
         Msg.emit(key);
     }
 
+    /** 操作:发送消息（带数据） */
     public static on_msg_str(data: key_type_string) {
         Msg.emit(data.key, data.value);
     }
 
+    /** 操作:实例化节点到场景中 */
     public static on_inst_scene(key: string) {
         var asset = ResCache.Instance.getPrefab(key);
         var obj = Res.inst(asset, ResPool.Instance._objectNode);
         obj.setPosition(0, 0, 0);
     }
 
+    /** 操作:实例化节点到节点池中 */
     public static on_inst_pool(key: string) {
         var asset = ResCache.Instance.getPrefab(key);
         var obj = Res.inst(asset, ResPool.Instance._poolNode);
@@ -371,11 +386,13 @@ export class UtilAction {
         actor.setFx(data);
     }
 
+    /** 操作:播放动画 */
     public static on_ani(key: string, actor: ActorBase) {
-        if (actor._anim)
+        if (actor._anim) {
             actor._anim.play(key);
-        else
-            console.log('Not register SkeletalAnimation');
+        } else {
+            log(`--->未找到动画:${key}`);
+        }
     }
 
     public static on_set(data: key_type, actor: ActorBase) {
@@ -389,7 +406,7 @@ export class UtilAction {
 
     public static on_add(data: any, actor: ActorBase) {
         for (let k in data) {
-            console.log(k);
+            log(k);
             actor._data[k] += data[k];
         }
     }
@@ -401,10 +418,12 @@ export class UtilAction {
         }
     }
 
+    /** 操作:给目标加上指定名称的模块 */
     public static on_com(key: string, actor: ActorBase) {
         actor.node.addComponent(key);
     }
 
+    /** 操作:执行目标身上的指定名字方法 */
     public static on_call(key: string, actor: ActorBase) {
         actor[key]();
     }
