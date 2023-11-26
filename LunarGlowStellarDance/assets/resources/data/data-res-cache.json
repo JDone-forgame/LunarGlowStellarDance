@@ -1,0 +1,19 @@
+{
+    "note": "这个文件记录所有需要加载进缓存的资源",
+    "json": [
+        "data",
+        "action",
+        "local"
+    ],
+    "prefab": [
+        "obj",
+        "actor",
+        "ui"
+    ],
+    "sprite": [
+        "icons"
+    ],
+    "sound": [
+        "sound"
+    ]
+}

@@ -1,0 +1,29 @@
+{
+    "show_version": "V1.0",
+    "start_node": "logo",
+    "action_data": "action-game",
+    "ui_cache_list": [ "ui_logo", "ui_menu", "ui_settings" ],
+    "ui_order":{
+        "ui_logo": 1,
+        "ui_menu": 1,
+        "ui_settings": 8
+    },
+    "nodes": {
+        "logo": { "next": "menu" },
+        "menu": {},
+        "settings": {}
+    },
+    "events":[
+        { "name": "btn_start", "event": "next" },
+        { "name": "btn_start_level", "event": "push", "data": "level" },
+        { "name": "btn_replay", "event": "push", "data": "replay" },
+        { "name": "btn_home", "event": "push", "data": "menu" },
+        { "name": "btn_close", "event": "back" },
+        { "name": "btn_settings", "event": "push", "data": "settings"},
+        { "name": "btn_next_language", "event": "next_language" },
+        { "name": "btn_pre_language", "event": "pre_language" },
+        { "name": "btn_next_quality", "event": "next_quality" },
+        { "name": "btn_pre_quality", "event": "pre_quality" },
+        { "name": "btn_guide_next", "event":"guide_next" }
+    ]
+}
