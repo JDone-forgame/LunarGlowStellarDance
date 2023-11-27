@@ -20,6 +20,9 @@ let allTextures: string[] = [
     "ui_btn_img2",
     "ui_btn_img3",
     "bg_jupiterocean",
+    "bg_menu",
+    "btn_menu_hover",
+    "btn_menu_normal"
 ]
 
 /** 加载所有纹理 */
